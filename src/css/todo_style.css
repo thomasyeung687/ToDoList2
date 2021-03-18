@@ -1,112 +1,118 @@
 :root {
-    /* 
+  /* 
         FIRST WE'LL DEFINE OUR SWATCHES, i.e. THE COMPLEMENTARY
         COLORS THAT WE'LL USE TOGETHER IN MULTIPLE PLACES THAT
         TOGETHER WILL MAKE UP A GIVEN THEME
     */
-    --swatch-foundation:    #d9d6cc; /* USED FOR BODY BACKGROUND */
-    --swatch-primary:       #40454e; /* DOMINANT COLOR, USED FOR MOST BACKGROUNDS */
-    --swatch-complement:    #353a44; /* USED IN CONTRAST BACKGROUND FOR TOOLBARS */
-    --swatch-contrast:      #111111; /* USED IN MOUSE-OVER SELECTION OF LARGE ELEMENTS */
-    --swatch-accent:        #ffc819; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */  
+  --swatch-foundation: #d9d6cc; /* USED FOR BODY BACKGROUND */
+  --swatch-primary: #40454e; /* DOMINANT COLOR, USED FOR MOST BACKGROUNDS */
+  --swatch-complement: #353a44; /* USED IN CONTRAST BACKGROUND FOR TOOLBARS */
+  --swatch-contrast: #111111; /* USED IN MOUSE-OVER SELECTION OF LARGE ELEMENTS */
+  --swatch-accent: #ffc819; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
 
-    --swatch-text:          #e9edf0; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */ 
-    --swatch-text-accent:   #19c8ff; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */  
+  --swatch-text: #e9edf0; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
+  --swatch-text-accent: #19c8ff; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
 
-    --font-primary:         'Consolas', sans-serif;
+  --font-primary: "Consolas", sans-serif;
 }
 
 #root {
-    background-color: var(--swatch-foundation);
-    font-family: var(--font-primary);
+  background-color: var(--swatch-foundation);
+  font-family: var(--font-primary);
 }
 
 #navbar {
-    background-color: var(--swatch-complement);
-    box-shadow: 2px 2px 2px var(--swatch-primary); 
-    color: rgb(255,200,25);
-    font-weight: bold;
-    font-size: 18pt;
+  background-color: var(--swatch-complement);
+  box-shadow: 2px 2px 2px var(--swatch-primary);
+  color: rgb(255, 200, 25);
+  font-weight: bold;
+  font-size: 18pt;
 }
 
 #left-sidebar {
-    background-color: var(--swatch-complement);
-    color: rgb(233,237,240);
+  background-color: var(--swatch-complement);
+  color: rgb(233, 237, 240);
 }
 
 #left-sidebar-header {
-    border-bottom: dotted;
-    font-size: 14pt;
-    font-weight: bold;
+  border-bottom: dotted;
+  font-size: 14pt;
+  font-weight: bold;
 }
 
 #todo-list-header-card {
-    border-bottom: dotted;
-    font-size: 14pt;
-    font-weight: bold;
+  border-bottom: dotted;
+  font-size: 14pt;
+  font-weight: bold;
 }
 
 #workspace {
-    background-color: var(--swatch-primary);
-    color: rgb(233,237,240);
+  background-color: var(--swatch-primary);
+  color: rgb(233, 237, 240);
 }
 
 #title-div {
-    color: rgb(255,200,25);
-    font-weight: bold;
-    font-size: 18pt;
+  color: rgb(255, 200, 25);
+  font-weight: bold;
+  font-size: 18pt;
 }
 
 #todo-list-table-header {
-    border-bottom: dotted;
+  border-bottom: dotted;
 }
 
 .list-header-card {
-    border-bottom: dotted;
+  border-bottom: dotted;
 }
 
 .list-item-control {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .list-item-card {
-    border-bottom: solid;
-    border-width: 1px;
-    font-weight: bold;
+  border-bottom: solid;
+  border-width: 1px;
+  font-weight: bold;
 }
 
 .todo-list-button {
-    cursor:pointer;
-    background-color: var(--swatch-complement);
-    font-weight: bold;
+  cursor: pointer;
+  background-color: var(--swatch-complement);
+  font-weight: bold;
 }
 
 .todo-list-button:hover {
-    background-color: var(--swatch-contrast);
+  background-color: var(--swatch-contrast);
 }
 
 .todo-button {
-    cursor:pointer;
-    background-color: var(--swatch-complement);
-    font-weight: bold;
+  cursor: pointer;
+  background-color: var(--swatch-complement);
+  font-weight: bold;
 }
 
 .todo-button:hover {
-    background-color: var(--swatch-contrast);
+  background-color: var(--swatch-contrast);
 }
 
 #add-list-button {
-    color: var(--swatch-accent);
+  color: var(--swatch-accent);
 }
 
 .status-incomplete {
-    color: var(--swatch-accent);
+  color: var(--swatch-accent);
 }
 
 .status-complete {
-    color: var(--swatch-text-accent);
+  color: var(--swatch-text-accent);
 }
 
-#add-item-button, #delete-list-button, #close-list-button {
-    text-align: center;
+#add-item-button,
+#delete-list-button,
+#close-list-button {
+  text-align: center;
+}
+
+.disabled_button {
+  color: gray;
 }

@@ -26,6 +26,8 @@ export class jsTPS_Transaction {
     }
 }
 
+//actual transaction implementatiokn dependijng 
+
 /**
  * jsTPS
  * 

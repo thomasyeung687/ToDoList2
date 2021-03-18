@@ -15,6 +15,7 @@ class ListLink extends Component {
     }
 
     handleLoadList = () => {
+        this.props.clearAllTransactionscb();
         this.props.loadToDoListCallback(this.props.toDoList);
     }
 
