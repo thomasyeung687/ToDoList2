@@ -113,6 +113,10 @@
   color: var(--swatch-accent);
 }
 
+#add-list-button-disabled {
+  color: gray;
+}
+
 .status-incomplete {
   color: var(--swatch-accent);
 }
