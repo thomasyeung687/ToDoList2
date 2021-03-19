@@ -9,6 +9,7 @@
   --swatch-complement: #353a44; /* USED IN CONTRAST BACKGROUND FOR TOOLBARS */
   --swatch-contrast: #111111; /* USED IN MOUSE-OVER SELECTION OF LARGE ELEMENTS */
   --swatch-accent: #ffc819; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
+  --swatch-hover: #878b91;
 
   --swatch-text: #e9edf0; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
   --swatch-text-accent: #19c8ff; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */
@@ -82,7 +83,11 @@
 }
 
 .todo-list-button:hover {
-  background-color: var(--swatch-contrast);
+  background-color: var(--swatch-hover);
+}
+
+.selected_list {
+  background-color: var(--swatch-accent);
 }
 
 .todo-button {

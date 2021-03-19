@@ -25,12 +25,13 @@ class LeftSidebar extends Component {
                     </span>
                 </div>
                 <div id="todo-lists-list">
-                {console.log(this.props.toDoLists)}
+                {/* {console.log(this.props.toDoLists)} */}
                 {
                     this.props.toDoLists.map((toDoList) => (
                         <ListLink
                             key={toDoList.id}
                             toDoList={toDoList}                                // PASS THE LIST TO THE CHILDREN
+                            currentListid = {this.props.currentListid}
                             loadToDoListCallback={this.props.loadToDoListCallback} 
                             clearAllTransactionscb = {this.props.clearAllTransactionscb}
                             />  // PASS THE CALLBACK TO THE CHILDREN

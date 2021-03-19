@@ -7,10 +7,12 @@ import jsTPS from './common/jsTPS'
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
-import deleteRowTransaction from './common/deleteRowTransaction.js'
 import ChgTaskDescription_Transaction from './common/ChgTaskDescription_Transaction.js'
 import ChgTaskDate_Transaction from './common/ChgTaskDate_Transaction.js'
 import ChgTaskStatus_Transaction from './common/ChgTaskStatus_Transaction.js'
+import AddNewItem_Transaction from './common/AddNewItem_Transaction.js'
+import MoveTaskUpDown_Transaction from './common/MoveTaskUpDown_Transaction.js'
+import DeleteTask_Transaction from './common/DeleteTask_Transaction.js'
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -48,8 +50,11 @@ class App extends Component {
         if (toDoListItem.id > highListItemId)
         highListItemId = toDoListItem.id;
       }
-    };
+    }; 
 
+    console.log("app.js constructor");
+    console.log(highListId);
+    console.log(highListItemId);
     // SETUP OUR APP STATE
     this.state = {
       toDoLists: recentLists,
@@ -74,7 +79,19 @@ class App extends Component {
       toDoLists: nextLists,
       currentList: toDoList
     });
+    this.forceUpdate();
   }
+
+  // WILL LOAD THE SELECTED LIST
+  closeLists = (toDoList) => {
+    console.log("loading " + toDoList);
+
+    this.setState({
+      currentList: {items: []},
+    });
+    this.forceUpdate();
+  }
+
 
   addNewList = () => {
     let newToDoListInList = [this.makeNewToDoList()];
@@ -89,9 +106,20 @@ class App extends Component {
     }, this.afterToDoListsChangeComplete);
   }
 
+  deleteList = (listId) => {
+    let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
+    let indexOfList = getIndex(listId, copyTodolist, 'id')
+    copyTodolist.splice(indexOfList,1);//at indexoflist remove one item.
+    this.setState({
+      toDoLists: copyTodolist,
+      currentList: {items: []},
+    }, this.afterToDoListsChangeComplete);
+    this.forceUpdate();
+  }
+
   makeNewToDoList = () => {
     let newToDoList = {
-      id: this.highListId,
+      id: this.state.nextListId,
       name: 'Untitled',
       items: []
     };
@@ -134,21 +162,7 @@ class App extends Component {
   }
 
   /**my stuff */
-  deleteRowOfTodoList=(listItemid)=>{
-    // let drt = new deleteRowTransaction(listItemid);
-    // this.tps.addTransaction(drt);
-    console.log("deleteRowOfTodoList item.id recieved: "+listItemid)
-  }
-  moveRowUpInTodoList=(listItemid)=>{
-    // let drt = new deleteRowTransaction(listItemid);
-    // this.tps.addTransaction(drt);
-    console.log("moveRowUpInTodoList item.id recieved: "+listItemid)
-  }
-  moveRowDownInTodoList=(listItemid)=>{
-    // let drt = new deleteRowTransaction(listItemid);
-    // this.tps.addTransaction(drt);
-    console.log("moveRowDownInTodoList item.id recieved: "+listItemid)
-  }  
+
   //*function passed to todoitem as a callback for when user is trying to change a row.
   editDescInTodoList = (listItemid, newDesc, oldDesc)=>{
     console.log("editDescInTodoList item.id recieved: "+listItemid+" new Description: "+newDesc+" olddesc:"+oldDesc);
@@ -166,8 +180,27 @@ class App extends Component {
     this.tps.addTransaction(chgstatus);
   }
 
+  deleteTaskInTodoList = (listItem) =>{
+    console.log(listItem);
+    let deleteTask = new DeleteTask_Transaction(this.actuallyAddTask, this.removeTask, listItem);
+    this.tps.addTransaction(deleteTask);
+  }
 
-
+  addNewTaskInTodoList = () => {
+    console.log("addNewTaskInTodoList ");
+    let addTask = new AddNewItem_Transaction(this.actuallyAddNewTask, this.removeTask);
+    this.tps.addTransaction(addTask);
+  }
+  moveRowUpInTodoList=(listItemid)=>{
+    // let drt = new deleteRowTransaction(listItemid);
+    // this.tps.addTransaction(drt);
+    console.log("moveRowUpInTodoList item.id recieved: "+listItemid)
+  }
+  moveRowDownInTodoList=(listItemid)=>{
+    // let drt = new deleteRowTransaction(listItemid);
+    // this.tps.addTransaction(drt);
+    console.log("moveRowDownInTodoList item.id recieved: "+listItemid)
+  }  
   //add new id.
   //this function will be what the transactions call in order to alter the data.
   //the listItemid is the id of the task (the row shown in workspace) we are trying to change, the newString is the new string we want to replace, and the col will take in status, due_date or description to signify which col to change.
@@ -201,6 +234,67 @@ class App extends Component {
 
   //function that will add a new task to a list. user in addnewItemTransaction and to undo a deletetransaction.
   
+  actuallyAddTask = (newListItem, index) => {
+    newListItem.id = this.state.nextListItemId;//if newListItem.id is undefined then we are creting a new item in list.
+    console.log("actuallyAddTask"+newListItem);
+    let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
+    let currentList = copyTodolist.filter((list)=>list.id == this.state.currentList.id)[0]; //getting the currentlist.
+    console.log(currentList);
+    currentList.items.splice(index, 0, newListItem);
+
+    this.setState({
+      toDoLists: copyTodolist,
+      currentList: currentList,
+      // nextListItemId: this.state.nextListItemId+1,
+    }, this.afterToDoListsChangeComplete);
+    this.forceUpdate();
+  }
+
+  actuallyAddNewTask = () =>{
+    let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
+    let currentList = copyTodolist.filter((list)=>list.id == this.state.currentList.id)[0]; //for list in state.todolists. 
+    let newTask = 
+    {id: 
+      this.state.nextListItemId,
+      description: "untitled",
+      due_date: "2021-12-14",
+      status: "incomplete",
+    };
+    //console.log(currentList);
+    currentList.items.push(newTask)
+    this.setState({
+      toDoLists: copyTodolist,
+      currentList: currentList,
+      // nextListItemId: this.state.nextListItemId+1,
+    }, this.afterToDoListsChangeComplete);
+    this.forceUpdate();
+    return newTask.id;//returning so that transaction can store it and use the id for deletion during undo
+  }
+
+  removeTask = (listItemid) =>{
+    console.log("removing " + listItemid);
+    let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
+    let currentList = copyTodolist.filter((list)=>list.id == this.state.currentList.id)[0]; //for list in state.todolists. 
+    let indexRemoved = this.getIndex(listItemid, currentList.items, "id");
+    //currentList.items.filter((task)=>task.id != listItemid);//only returning an array with elements that do not have the id of listItemid. 
+    currentList.items.splice(indexRemoved,1);//removing one item at indexRemoved.
+    console.log("List after removal:" +currentList.items);
+    this.setState({
+      toDoLists: copyTodolist,
+      currentList: currentList,
+    }, this.afterToDoListsChangeComplete);
+    this.forceUpdate();
+    return indexRemoved;
+  }
+
+  getIndex(value, arr, prop) {
+    for(var i = 0; i < arr.length; i++) {
+        if(arr[i][prop] === value) {
+            return i;
+        }
+    }
+    return -1; //to handle the case where the value doesn't exist
+}
 
 
   render() {
@@ -210,13 +304,14 @@ class App extends Component {
       <div id="root">
         <Navbar />
         <LeftSidebar 
+          currentListid = {this.state.currentList.id}
           toDoLists={this.state.toDoLists}
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
           clearAllTransactionscb = {this.clearAllTransactions}
         />
         <Workspace toDoListItems={items} 
-        deleteRowOfTodoListcb={this.deleteRowOfTodoList}
+        deleteRowOfTodoListcb={this.deleteTaskInTodoList}
         moveRowUpInTodoListcb = {this.moveRowUpInTodoList}
         moveRowDownInTodoListcb = {this.moveRowDownInTodoList}
         editDescInTodoListcb = {this.editDescInTodoList}
@@ -226,6 +321,8 @@ class App extends Component {
         redoTransactioncb = {this.redoTransaction}
         undoSize = {this.tps.getUndoSize()}
         redoSize = {this.tps.getRedoSize()}
+        addNewTaskInTodoListcb = {this.addNewTaskInTodoList}
+        closeListscb = {this.closeLists}
         />
       </div>
     );

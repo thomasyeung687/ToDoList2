@@ -1,5 +1,5 @@
 // IMPORT ALL THE THINGS NEEDED FROM OTHER JAVASCRIPT SOURCE FILES
-import React, { Component, useState} from 'react'
+import React, { Component} from 'react'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Close from '@material-ui/icons/Close';
@@ -18,6 +18,7 @@ class ToDoItem extends Component {
             DescColVal: listitem.description,
             DueDateCol: listitem.due_date,
             StatusCol: listitem.status,
+            listitem: this.props.toDoListItem,
         };
         // console.log(this.state.editingDescCol);
         // console.log(this.state.editingDueDateCol);
@@ -52,7 +53,7 @@ class ToDoItem extends Component {
 
     deleteRowFunction = ()=>{
         console.log(this.state.itemid+" delete button clicked!");
-        this.props.deleteRowOfTodoListcb(this.state.itemid);
+        this.props.deleteRowOfTodoListcb(this.state.listitem);
     }
     
     moveRowUpInTodoList = () =>{
@@ -82,7 +83,7 @@ class ToDoItem extends Component {
                 {/* {console.log(listItem.id+" "+this.state.editingDescCol)}
                 {console.log(listItem.id+" "+this.state.editingDueDateCol)}
                 {console.log(listItem.id+" "+this.state.editingStatusCol)} */}
-                {console.log(this.state)}
+                {console.log(this.state.listitem)}
 
                 {this.state.editingDescCol ? 
                     <><input className='item-col task-col' defaultValue={listItem.description} onBlur={(event)=>{this.setState({editingDescCol: false,}); this.descColOnChange(event);}}></input></>
@@ -97,7 +98,7 @@ class ToDoItem extends Component {
                 {this.state.editingStatusCol ? 
                     <>
                         <select id = "dropdown" className='item-col task-col' onBlur={(event)=>{this.setState({editingStatusCol: false,}); this.StatusColOnChange(event); }}>
-                            {listItem.status == "complete" ? 
+                            {listItem.status === "complete" ? 
                                 <>
                                 <option value="complete" selected>complete</option>
                                 <option value="incomplete">incomplete</option>
@@ -116,12 +117,12 @@ class ToDoItem extends Component {
 
                 <div className='item-col test-4-col'></div>
                 <div className='item-col list-controls-col'>
-                    {this.props.firstListItemId == listItem.id ?
+                    {this.props.firstListItemId === listItem.id ?
                         <><KeyboardArrowUp className='disabled_button '/></>
                         :
                         <><KeyboardArrowUp className='list-item-control todo-button ' onClick={()=>{this.moveRowUpInTodoList()}} /></>
                     }
-                    {this.props.lastListItemId == listItem.id ?
+                    {this.props.lastListItemId === listItem.id ?
                         <><KeyboardArrowDown className='disabled_button '/></>
                         :
                         <><KeyboardArrowDown className='list-item-control todo-button' onClick={()=>{this.moveRowDownInTodoList()}} /></>
