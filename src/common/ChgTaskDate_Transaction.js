@@ -1,5 +1,3 @@
-'use strict'
-
 import { jsTPS_Transaction } from "./jsTPS"
 
 export default class ChgTaskDate_Transaction extends jsTPS_Transaction{

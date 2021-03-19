@@ -1,5 +1,3 @@
-'use strict'
-
 import { jsTPS_Transaction } from "../../common/jsTPS.js"
 
 export default class EditListName_Transaction extends jsTPS_Transaction{

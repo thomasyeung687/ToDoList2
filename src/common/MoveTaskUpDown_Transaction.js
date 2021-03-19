@@ -1,12 +1,11 @@
-'use strict'
-
 import { jsTPS_Transaction } from "./jsTPS"
 
 export default class MoveTaskUpDown_Transaction extends jsTPS_Transaction{
     constructor(moveItemcb, listItemId, action){
         super();
-        this.listItemid = listItemId
-        this.action = action
+        this.listItemid = listItemId;
+        this.moveItemcb = moveItemcb;
+        this.action = action;
         if(this.action == "up"){
             this.undoAction = "down";
         }else{

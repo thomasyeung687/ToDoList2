@@ -207,11 +207,15 @@ class App extends Component {
     // let drt = new deleteRowTransaction(listItemid);
     // this.tps.addTransaction(drt);
     console.log("moveRowUpInTodoList item.id recieved: "+listItemid)
+    let moveUp = new MoveTaskUpDown_Transaction(this.moveTaskUpDown, listItemid,'up')
+    this.tps.addTransaction(moveUp);
   }
   moveRowDownInTodoList=(listItemid)=>{
     // let drt = new deleteRowTransaction(listItemid);
     // this.tps.addTransaction(drt);
     console.log("moveRowDownInTodoList item.id recieved: "+listItemid)
+    let moveDown = new MoveTaskUpDown_Transaction(this.moveTaskUpDown, listItemid,'down')
+    this.tps.addTransaction(moveDown);
   }  
   //add new id.
   //this function will be what the transactions call in order to alter the data.
@@ -306,8 +310,29 @@ class App extends Component {
         }
     }
     return -1; //to handle the case where the value doesn't exist
-}
+  }
 
+  moveTaskUpDown = (listitemid, action)=>{
+    console.log(listitemid+" action: "+action);
+    let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
+    let currentList = copyTodolist.filter((list)=>list.id == this.state.currentList.id)[0]; //for list in state.todolists. 
+    let index = this.getIndex(listitemid, currentList.items, 'id');
+    let removedarray = currentList.items.splice(index,1);
+    console.log(index);
+    console.log(removedarray);
+    if(action == "up"){
+      currentList.items.splice(index-1, 0, removedarray[0]);
+    }else{
+      currentList.items.splice(index+1, 0, removedarray[0]);
+    }
+    console.log(currentList);
+
+    this.setState({
+      toDoLists: copyTodolist,
+      currentList: currentList,
+    }, this.afterToDoListsChangeComplete);
+    this.forceUpdate();
+  }
 
   render() {
     let items = this.state.currentList.items;

@@ -1,5 +1,3 @@
-'use strict'
-
 // IMPORT ALL THE THINGS NEEDED FROM OTHER JAVASCRIPT SOURCE FILES
 import { jsTPS_Transaction } from "./jsTPS"
 

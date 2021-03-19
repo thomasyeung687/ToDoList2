@@ -1,5 +1,3 @@
-'use strict'
-
 import { jsTPS_Transaction } from "./jsTPS"
 
 export default class ChgTaskStatus_Transaction extends jsTPS_Transaction{
