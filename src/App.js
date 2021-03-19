@@ -150,11 +150,13 @@ class App extends Component {
   undoTransaction = () => {
     console.log("undoing");
     this.tps.undoTransaction();
+    this.forceUpdate();
   }
 
   redoTransaction = () => {
     console.log("redoing");
     this.tps.doTransaction();
+    this.forceUpdate();
   }
 
   clearAllTransactions = () =>{

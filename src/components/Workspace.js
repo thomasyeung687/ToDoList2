@@ -14,6 +14,11 @@ class Workspace extends Component {
             modal: false,
         };
     }
+
+    componentDidMount = () =>{
+        document.addEventListener('keydown', this.keydownChecker)
+    }
+
     modalOpen() {
         console.log("setting modal to open");
         this.setState({ modal: true });
@@ -26,6 +31,15 @@ class Workspace extends Component {
             modal: false
         });
         this.forceUpdate();
+    }
+
+
+    keydownChecker = (e) =>{
+        if(e.ctrlKey === true && e.key === 'y'){
+            this.props.redoTransactioncb();
+        }else if(e.ctrlKey === true && e.key === 'z'){
+            this.props.undoTransactioncb();
+        }
     }
 
     render() {
