@@ -10,6 +10,22 @@ import Close from '@material-ui/icons/Close';
 class Workspace extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            modal: false,
+        };
+    }
+    modalOpen() {
+        console.log("setting modal to open");
+        this.setState({ modal: true });
+        this.forceUpdate();
+    }
+
+    modalClose() {
+        console.log("closing modal");
+        this.setState({
+            modal: false
+        });
+        this.forceUpdate();
     }
 
     render() {
@@ -28,6 +44,8 @@ class Workspace extends Component {
             lastListItemId = todolistitems[todolistitems.length-1];
             console.log(firstListItemId + " "+ lastListItemId);
         }
+        const showModalOrHide = this.state.modal ? "modal modal_show" : "modal modal_hide";
+        console.log(showModalOrHide);
         return (
             <div id="workspace">
                 <div id="todo-list-header-card" className="list-item-card">
@@ -49,7 +67,7 @@ class Workspace extends Component {
                         
                         
                         <AddBox id="add-item-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.addNewTaskInTodoListcb()}}/>
-                        <Delete id="delete-list-button" className="list-item-control material-icons todo-button" />
+                        <Delete id="delete-list-button" className="list-item-control material-icons todo-button" onClick={()=>{this.modalOpen()}}/>
                         <Close id="close-list-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.closeListscb()}}/>
                     </div>
                 </div>
@@ -69,6 +87,14 @@ class Workspace extends Component {
                             lastListItemId = {lastListItemId}
                         />))
                     }
+                </div>
+                <div id="myModal" class={showModalOrHide}>
+                    <div class="modal-content">
+                    <span class="close" onClick={()=>{this.modalClose()}}>&times;</span>
+                    <p>Are you sure you want to delete this list?</p>
+                    <button id="myModalyes" onClick={console.log("delete list confirmed")}>yes</button>
+                    <button id="myModalno" onClick={()=>{this.modalClose()}}>no</button>
+                    </div>
                 </div>
                 <br />
             </div>

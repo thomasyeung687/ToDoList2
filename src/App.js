@@ -108,7 +108,7 @@ class App extends Component {
 
   deleteList = (listId) => {
     let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
-    let indexOfList = getIndex(listId, copyTodolist, 'id')
+    let indexOfList = this.getIndex(listId, copyTodolist, 'id')
     copyTodolist.splice(indexOfList,1);//at indexoflist remove one item.
     this.setState({
       toDoLists: copyTodolist,
@@ -323,6 +323,7 @@ class App extends Component {
         redoSize = {this.tps.getRedoSize()}
         addNewTaskInTodoListcb = {this.addNewTaskInTodoList}
         closeListscb = {this.closeLists}
+        deleteListcb = {this.deleteList}
         />
       </div>
     );
