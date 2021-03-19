@@ -34,6 +34,7 @@ class LeftSidebar extends Component {
                             currentListid = {this.props.currentListid}
                             loadToDoListCallback={this.props.loadToDoListCallback} 
                             clearAllTransactionscb = {this.props.clearAllTransactionscb}
+                            editListNamecb = {this.props.editListNamecb}
                             />  // PASS THE CALLBACK TO THE CHILDREN
                             
                     ))

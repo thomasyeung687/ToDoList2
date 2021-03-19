@@ -106,13 +106,25 @@ class App extends Component {
     }, this.afterToDoListsChangeComplete);
   }
 
-  deleteList = (listId) => {
+  deleteList = () => {
     let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
-    let indexOfList = this.getIndex(listId, copyTodolist, 'id')
+    let indexOfList = this.getIndex(this.state.currentList.id, copyTodolist, 'id');
     copyTodolist.splice(indexOfList,1);//at indexoflist remove one item.
+    console.log("deleted list at index: "+indexOfList);
     this.setState({
       toDoLists: copyTodolist,
       currentList: {items: []},
+    }, this.afterToDoListsChangeComplete);
+    this.forceUpdate();
+  }
+
+  editListName = (listid, newListName)=>{
+    console.log(listid+" "+newListName);
+    let copyTodolist = this.state.toDoLists.map((todolist)=>{return todolist}); //
+    let todolistToEdit = copyTodolist.filter((list)=>list.id == listid)[0]; //for list in state.todolists.
+    todolistToEdit.name = newListName;
+    this.setState({
+      toDoLists: copyTodolist,
     }, this.afterToDoListsChangeComplete);
     this.forceUpdate();
   }
@@ -245,7 +257,7 @@ class App extends Component {
     this.setState({
       toDoLists: copyTodolist,
       currentList: currentList,
-      // nextListItemId: this.state.nextListItemId+1,
+      nextListItemId: this.state.nextListItemId+1,
     }, this.afterToDoListsChangeComplete);
     this.forceUpdate();
   }
@@ -265,7 +277,7 @@ class App extends Component {
     this.setState({
       toDoLists: copyTodolist,
       currentList: currentList,
-      // nextListItemId: this.state.nextListItemId+1,
+      nextListItemId: this.state.nextListItemId+1,
     }, this.afterToDoListsChangeComplete);
     this.forceUpdate();
     return newTask.id;//returning so that transaction can store it and use the id for deletion during undo
@@ -309,8 +321,10 @@ class App extends Component {
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
           clearAllTransactionscb = {this.clearAllTransactions}
+          editListNamecb = {this.editListName}
         />
-        <Workspace toDoListItems={items} 
+        <Workspace 
+        toDoListItems={items} 
         deleteRowOfTodoListcb={this.deleteTaskInTodoList}
         moveRowUpInTodoListcb = {this.moveRowUpInTodoList}
         moveRowDownInTodoListcb = {this.moveRowDownInTodoList}

@@ -47,6 +47,7 @@ class Workspace extends Component {
         const showModalOrHide = this.state.modal ? "modal modal_show" : "modal modal_hide";
         console.log(showModalOrHide);
         return (
+            <>
             <div id="workspace">
                 <div id="todo-list-header-card" className="list-item-card">
                     <div id="task-col-header" className="item-col todo-button">Task</div>
@@ -72,6 +73,7 @@ class Workspace extends Component {
                     </div>
                 </div>
                 <div id="todo-list-items-div">
+                    {console.log(this.props.toDoListItems)}
                     {
                         this.props.toDoListItems.map((toDoListItem) => (
                         <ToDoItem
@@ -88,16 +90,18 @@ class Workspace extends Component {
                         />))
                     }
                 </div>
-                <div id="myModal" class={showModalOrHide}>
-                    <div class="modal-content">
-                    <span class="close" onClick={()=>{this.modalClose()}}>&times;</span>
-                    <p>Are you sure you want to delete this list?</p>
-                    <button id="myModalyes" onClick={console.log("delete list confirmed")}>yes</button>
-                    <button id="myModalno" onClick={()=>{this.modalClose()}}>no</button>
-                    </div>
-                </div>
+                
                 <br />
             </div>
+            <div id="myModal" class={showModalOrHide}>
+                <div class="modal-content">
+                <span class="close" onClick={()=>{this.modalClose()}}>&times;</span>
+                <p>Are you sure you want to delete this list?</p>
+                <button id="myModalyes" onClick={()=>{this.props.deleteListcb(); this.modalClose();}}>yes</button>
+                <button id="myModalno" onClick={()=>{this.modalClose()}}>no</button>
+                </div>
+            </div>
+            </>
         );
     }
 }

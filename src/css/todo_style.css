@@ -124,10 +124,10 @@
 
 /* Modal Content/Box */
 .modal_show {
-  display: block;
+  display: block !important;
 }
 .modal_hide {
-  display: none;
+  display: none !important;
 }
 /*** MODAL STYLING ***/
 .modal {
