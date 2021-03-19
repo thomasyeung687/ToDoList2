@@ -74,9 +74,9 @@ class ToDoItem extends Component {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem render");
         let listItem = this.props.toDoListItem;
-        let statusType = "status-complete";
+        let statusType = "status-complete hoverable";
         if (listItem.status === "incomplete")
-            statusType = "status-incomplete";
+            statusType = "status-incomplete hoverable";
 
         return (
             <div id={'todo-list-item-' + listItem.id} className='list-item-card'>
@@ -86,18 +86,18 @@ class ToDoItem extends Component {
                 {console.log(this.state.listitem)}
 
                 {this.state.editingDescCol ? 
-                    <><input className='item-col task-col' defaultValue={listItem.description} onBlur={(event)=>{this.setState({editingDescCol: false,}); this.descColOnChange(event);}}></input></>
+                    <><input className='item-col task-col item_col_input' defaultValue={listItem.description} onBlur={(event)=>{this.setState({editingDescCol: false,}); this.descColOnChange(event);}}></input></>
                 :
-                    <><div className='item-col task-col' onClick={()=>{this.setState({editingDescCol: true,})}}>{listItem.description}</div></>
+                    <><div className='item-col task-col hoverable' onClick={()=>{this.setState({editingDescCol: true,})}}>{listItem.description}</div></>
                 }
                 {this.state.editingDueDateCol ? 
-                    <><input type="date" className='item-col task-col' defaultValue={listItem.due_date} onBlur={(event)=>{this.setState({editingDueDateCol: false,}); this.dateColOnChange(event);}}></input></>
+                    <><input type="date" className='item-col task-col item_col_input' defaultValue={listItem.due_date} onBlur={(event)=>{this.setState({editingDueDateCol: false,}); this.dateColOnChange(event);}}></input></>
                 :
-                    <><div className='item-col due-date-col' onClick={()=>{this.setState({editingDueDateCol: true,})}}>{listItem.due_date}</div></>
+                    <><div className='item-col due-date-col hoverable' onClick={()=>{this.setState({editingDueDateCol: true,})}}>{listItem.due_date}</div></>
                 }
                 {this.state.editingStatusCol ? 
                     <>
-                        <select id = "dropdown" className='item-col task-col' onBlur={(event)=>{this.setState({editingStatusCol: false,}); this.StatusColOnChange(event); }}>
+                        <select id = "dropdown" className='status_input' onBlur={(event)=>{this.setState({editingStatusCol: false,}); this.StatusColOnChange(event); }}>
                             {listItem.status === "complete" ? 
                                 <>
                                 <option value="complete" selected>complete</option>

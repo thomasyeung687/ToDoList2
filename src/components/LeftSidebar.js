@@ -17,7 +17,7 @@ class LeftSidebar extends Component {
             <div id="left-sidebar">
                 <div id="left-sidebar-header" class="section-header">
                     <span class="left-sidebar-header-text">Todolists</span>
-                    <span class="left-sidebar-controls" id="add-undo-redo-box">
+                    <span class="left-sidebar-controls" id="add-undo-redo-box" style={{paddingLeft:10}}>
                         <AddBox 
                             id="add-list-button"
                             className="material-icons todo_button"

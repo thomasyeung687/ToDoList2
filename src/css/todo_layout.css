@@ -108,6 +108,10 @@
   width: 25%;
 }
 
+.status_input {
+  width: fit-content;
+}
+
 .list-controls-col {
   display: flex;
   flex-direction: row;

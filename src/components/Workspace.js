@@ -55,21 +55,26 @@ class Workspace extends Component {
                     <div id="status-col-header" className="item-col todo-button">Status</div>
                     <div className="item-col" display="flex" flexDirection="row" flexWrap="nowrap">
                         
-                        {this.props.undoSize === 0 ? 
-                            <><Undo id="undo-button" className="disabled_button" /></>
-                        :
-                            <><Undo id="undo-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.undoTransactioncb()}}/></>
-                        }
-                        {this.props.redoSize === 0 ? 
-                            <><Redo id="redo-button" className="disabled_button" /></>
-                        :
-                            <><Redo id="redo-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.redoTransactioncb()}}/></>
+                        {this.props.currentlist.id==undefined?
+                            <></>
+                        :   
+                            <>
+                            {this.props.undoSize === 0 ? 
+                                <><Undo id="undo-button" className="disabled_button" /></>
+                            :
+                                <><Undo id="undo-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.undoTransactioncb()}}/></>
+                            }
+                            {this.props.redoSize === 0 ? 
+                                <><Redo id="redo-button" className="disabled_button" /></>
+                            :
+                                <><Redo id="redo-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.redoTransactioncb()}}/></>
+                            }
+                            <AddBox id="add-item-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.addNewTaskInTodoListcb()}}/>
+                            <Delete id="delete-list-button" className="list-item-control material-icons todo-button" onClick={()=>{this.modalOpen()}}/>
+                            <Close id="close-list-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.closeListscb()}}/>
+                            </>
                         }
                         
-                        
-                        <AddBox id="add-item-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.addNewTaskInTodoListcb()}}/>
-                        <Delete id="delete-list-button" className="list-item-control material-icons todo-button" onClick={()=>{this.modalOpen()}}/>
-                        <Close id="close-list-button" className="list-item-control material-icons todo-button" onClick={()=>{this.props.closeListscb()}}/>
                     </div>
                 </div>
                 <div id="todo-list-items-div">

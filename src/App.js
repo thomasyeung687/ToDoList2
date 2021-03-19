@@ -349,6 +349,7 @@ class App extends Component {
           editListNamecb = {this.editListName}
         />
         <Workspace 
+        currentlist = {this.state.currentList}
         toDoListItems={items} 
         deleteRowOfTodoListcb={this.deleteTaskInTodoList}
         moveRowUpInTodoListcb = {this.moveRowUpInTodoList}
